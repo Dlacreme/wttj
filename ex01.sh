@@ -22,7 +22,7 @@ then
         ;;
         test)
             (cd ex01; \
-                python ./test/test.py
+                python ./test_geolocation.py
             )
         ;;
     esac
