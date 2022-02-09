@@ -4,15 +4,28 @@
 
 Thank you for reviewing my work. You can find the initial speficiations in `specifications.md`.
 
-The answers of each exercise can be found directly in their own folder. The following of this document only presents global information & some personal notes.
+The answers and details of each exercise can be found directly in the README.md of their own folder. The following of this document only presents global information & some personnal notes.
 
 ## Technical details
 
 ### Run it on your local
 
-We are using [`shapely`](https://pypi.org/project/Shapely/) to deal with geolocation positions. It requires Python >= 3.6 & GEOS >= 3.3.
+Dependencies:
+ - Python & pip: to parse & process data of ex01
+ - GEOS: dependency of `shapely`, a python library used for process geo location positions
+ - a few python libraries: `shapely` & `pandas`. You can install the dependencies using `pip install -r ./requirements.txt` (I suggest using virtualenv)
 
-You can then install `shapely` using `pip install -r ./requirements.txt`. I suggest using a virtualenv to avoid conflicts on your machine.
+#### Ex01
+
+You will find more details on how to run the script in `ex01/README.md`, however I made a small script to easily run said script from this folder:
+
+| COMMAND            | DESCRIPTION                           |
+| ------------------ | ------------------------------------- |
+| bash ex01.sh       | Run the script in a standard context  |
+| bash ex01.sh help  | Display the help of the python script |
+| bash ex01.sh debug | Run the script with all debug logs    |
+| bash ex01.sh test  | Run the test suites for geolocation   |
+
 
 ### Languages used
 
@@ -21,7 +34,3 @@ I am using [`asdf`](https://github.com/asdf-vm/asdf) to ensure a clean environme
 ### Environment
 
 This project has been developped & tested on Archlinux.
-
-## Random notes
-
- - UTF-8 encoding is required to ensure names are properly stored
