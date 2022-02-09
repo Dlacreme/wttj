@@ -28,6 +28,7 @@ def main():
     analyzer = Analyzer(geolocation)
     analyzer.load_professions_from(args["professions"])
     analyzer.load_jobs_from(args["jobs"])
+    res = analyzer.aggregate()
 
 """
 Prepare the parser & set helpers for the scripts

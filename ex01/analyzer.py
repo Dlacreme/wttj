@@ -5,10 +5,16 @@ from pandas import DataFrame
 class Analyzer:
     """
     Load the lists of professions & jobs and use pandas to process the data
+
+    Because we don't have a lot of professions, we store the professions as a dict using its ID as key.
+    This allow to have a quick access to a profession and easily join the data with a job
     """
 
     def __init__(self, geolocation):
         self.geolocation = geolocation
+        self.jobs = None
+        self.professions = {}
+        self.profession_categories = set([])
 
     """
     Read the CSV file and parse rows into a readable dict
@@ -21,10 +27,11 @@ class Analyzer:
                 'category_name': array[2]
             }
 
-        self.professions_dataframe = DataFrame(list(map(
-            read_profession,
-            parse_csv(pathname)
-        )))
+        for profession in map(read_profession, parse_csv(pathname)):
+            # store profession
+            self.professions[profession['id']] = profession
+            # add the category
+            self.profession_categories.add(profession['category_name'])
 
     """
     Read the CSV file and parse rows into a readable dict
@@ -37,7 +44,7 @@ class Analyzer:
                 lon = float(row[4])
                 continent = self.geolocation.get_continent_from_lat_and_lon(lat, lon)
                 return {
-                    'id': int(row[0]),
+                    'profession_id': int(row[0]),
                     'contract_type': row[1],
                     'name': row[2],
                     'lat': lat,
@@ -52,3 +59,12 @@ class Analyzer:
                 read_continent,
                 parse_csv(pathname)
             )))
+
+    def group_by_professions_category_and_count(self, jobs):
+        for category in self.profession_categories:
+            print(f'count for {category}')
+
+    def aggregate(self):
+        {
+            'total': self.group_by_professions_category_and_count(self.jobs)
+        }
