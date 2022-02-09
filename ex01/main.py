@@ -8,47 +8,43 @@ Script flow:
  4. output the result
 """
 import logging
+from argparse import ArgumentParser
 from sys import argv
 from geolocation import Geolocation
 
+# Default log level to display
+DEFAULT_LOGGING_LEVEL = logging.INFO
 # We need at least 3 parameters: script name, job list & professions list
 MIN_ARGV_LENGTH = 3
 # We store continent paths into an external file to make it easier to maintain - NOTE: could also be a cli arg
-CONTINENT_COORDS_PATHNAME = './ex01/continent_coords.json'
+DEFAULT_CONTINENT_COORDS_PATHNAME = './continent_coords.json'
 
 def main():
-    set_logs()
-    ensure_argv_or_exit()
+    args = vars(get_args())
+    set_logs(args['log'])
     # Geolocation loads continents' data and preovide helpers to deal with geolocation
-    geo_helper = Geolocation(CONTINENT_COORDS_PATHNAME)
+    geo_helper = Geolocation(args['continents'])
 
 """
-Display (on stdout) a documentation to use this script
+Prepare the parser & set helpers for the scripts
 """
-def print_helper():
-    print("""
-    Usage:
+def get_args():
+    parser = ArgumentParser(description="Parse & process data about jobs & professions", add_help=True)
+    parser.add_argument('-jobs', help='REQUIRED - Define the list of jobs to use', required=True)
+    parser.add_argument('-professions', help='REQUIRED - Define the list of professions to use', required=True)
+    parser.add_argument('-continents', help='OPTIONAL \'INFO\' by default - Define the continents\' data to use', default=DEFAULT_CONTINENT_COORDS_PATHNAME, required=False)
+    parser.add_argument('-log', help='OPTIONAL \'./continent_coords.json\' by default - Set up the log level to display.', default=DEFAULT_LOGGING_LEVEL, required=False)
+    return parser.parse_args()
 
-    ./main.py job-list.csv professions-list.csv
-    """)
 
 """
 Set the config of the logging system
 """
-def set_logs():
+def set_logs(log_level):
     logging.basicConfig(
         format='[%(levelname)s] %(message)s',
-        level=logging.DEBUG
+        level=log_level
     )
-
-"""
-Check the number of arguments & exit the script if it's not valid
-"""
-def ensure_argv_or_exit():
-    if len(argv) < MIN_ARGV_LENGTH:
-        print_helper()
-        logging.critical('Invalid parameters. Exit program')
-        exit()
 
 if __name__ == "__main__":
     main()

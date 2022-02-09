@@ -24,7 +24,6 @@ class Geolocation:
             logging.error('Failed to process continents data')
             logging.error(f'Inner error {e}')
             exit()
-        self.__print_continents()
 
     """
     We loop through all the continents and check if the point is in or out
@@ -35,11 +34,3 @@ class Geolocation:
             if cont.is_coord_in(lat, lon):
                 return cont
         return None
-
-    """
-    Print each continents if the logging system is set to DEBUG
-    """
-    def __print_continents(self):
-        if logging.root.level <= logging.DEBUG:
-            for cont in self.continents:
-                cont.pretty_print()
