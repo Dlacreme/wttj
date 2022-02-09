@@ -81,7 +81,6 @@ def test_continent(continent_code):
 
 if test_continent('AF'):
     print('Africa test: OK')
-    print('Africa test: OK')
 if test_continent('AUS'):
     print('Australia test: OK')
 if test_continent('ASIA'):
