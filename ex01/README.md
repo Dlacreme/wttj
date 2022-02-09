@@ -1,5 +1,30 @@
 # Exercise 01
 
+## Usage
+
+The script is written in Python. You can check the usage by running:
+
+```sh
+$ python main.py -h
+```
+
+**Basic usage**
+```sh
+$ python main.py \
+    -jobs ../appendix/technical-test-jobs.csv \
+    -professions ../appendix/technical-test-professions.csv \
+    -continents ./continent_coords.json
+```
+
+**Advanced usage**
+```sh
+$ python main.py \
+    -jobs ../appendix/technical-test-jobs.csv \
+    -professions ../appendix/technical-test-professions.csv \
+    -continents ./continent_coords.json \
+    -log DEBUG
+```
+
 ## Geolocation
 
 The tricky part here is clearly about finding the continent. I came up with 3 solutions:
@@ -42,7 +67,7 @@ Many API provide such information. The geolocation API from Google is an example
 
 This is a very good option however it can quickly become very expensive so this is a choice that should be discuss heavily with management.
 
-### Static data in Script
+### Script implementation
 
 We can find online the coordinates of every continent. We can store those coordinates directly in our scripts and use them to check if a geo location is inside or outside of a continent.
 
@@ -55,3 +80,13 @@ We can find online the coordinates of every continent. We can store those coordi
 
 #### Notes
 This is not something I would use in a professional environment but it seems like a valid option for this test
+
+## Dependencies
+
+  - shapely:
+  We use `shapely` to represents the area of every continent and check if a point is part of it
+
+  - pandas:
+  We use `pandas` to easily and quickly process the data
+
+

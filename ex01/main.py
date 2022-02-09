@@ -36,7 +36,6 @@ def get_args():
     parser.add_argument('-log', help='OPTIONAL \'./continent_coords.json\' by default - Set up the log level to display.', default=DEFAULT_LOGGING_LEVEL, required=False)
     return parser.parse_args()
 
-
 """
 Set the config of the logging system
 """
