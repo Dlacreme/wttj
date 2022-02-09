@@ -14,7 +14,6 @@ def main():
     set_logs()
     ensure_argv_or_exit()
     geo_helper = Geolocation(CONTINENT_COORDS_PATHNAME)
-    print(geo_helper.get_continent_from_lat_and_lon(10, 10))
 
 # Display -on stdout- a documentation to use this script
 def print_helper():

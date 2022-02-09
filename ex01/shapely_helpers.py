@@ -8,10 +8,12 @@ See: https://shapely.readthedocs.io/en/stable/manual.html for more details
 """
 
 def to_polygon(coords):
-    print(coords)
     lat = coords['lat']
     lon = coords['lon']
     pol_coords = []
-    for i, _v in enumerate(lat):
+    for i, _ in enumerate(lat):
         pol_coords.append((lat[i], lon[i]))
     return Polygon(pol_coords)
+
+def to_point(lat, lon):
+    return Point(lat, lon)

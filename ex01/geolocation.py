@@ -15,10 +15,10 @@ class Geolocation:
         logging.debug(f'Load continent from {coords_pathname}')
         continents_data = parse_json(coords_pathname, exit_on_failure=True)
         try:
-            self.continents = map(
+            self.continents = list(map(
                 Continent,
                 continents_data
-            )
+            ))
         except Exception as e:
             logging.error('Failed to process continents data')
             logging.error(f'Inner error {e}')
@@ -29,7 +29,9 @@ class Geolocation:
     We
     """
     def get_continent_from_lat_and_lon(self, lat, lon):
-        return "hello"
+        for cont in self.continents:
+            if cont.is_coord_in(lat, lon):
+                return cont
 
     def __print_continents(self):
         if logging.root.level <= logging.DEBUG:

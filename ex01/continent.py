@@ -1,4 +1,4 @@
-from shapely_helpers import to_polygon
+from shapely_helpers import to_polygon, to_point
 
 class Continent:
     """
@@ -12,6 +12,13 @@ class Continent:
             to_polygon,
             continent_data['coords']
         ))
+
+    def is_coord_in(self, lat, lon):
+        point = to_point(lat, lon)
+        for polygon in self.polygons:
+            if polygon.contains(point):
+                return True
+        return False
 
     def pretty_print(self):
         print(f'{self.label} - {self.code}: ready to work with {len(self.polygons)} polygons')
