@@ -1,2 +1,6 @@
 notes.md
 .elixir_ls
+**/*/__pycache__/
+ex01/__pycache__/
+ex01/*.py[cod]
+ex01/*$py.class
