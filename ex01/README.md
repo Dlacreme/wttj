@@ -25,6 +25,8 @@ $ python main.py \
     -log DEBUG
 ```
 
+**Please note invalid rows are ignored. They are displayed as 'warning'. They can be shown or hidden by using correctly the `-log` argument**
+
 ## Geolocation
 
 The tricky part here is clearly about finding the continent. I came up with 3 solutions:
@@ -88,5 +90,3 @@ This is not something I would use in a professional environment but it seems lik
 
   - pandas:
   We use `pandas` to easily and quickly process the data
-
-

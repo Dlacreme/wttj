@@ -1,17 +1,31 @@
 import logging
 from json import loads as json_loads
+from csv import reader as csv_reader
 
 """
 Open @pathname expecting it to be JSON valid and returns its content as dict
 """
 def parse_json(pathname, exit_on_failure=False):
-    return __read_and_parse(pathname, json_loads, exit_on_failure)
+    def __parse_json(content):
+        return json_loads(content.read())
+    return __read_and_parse(pathname, __parse_json, exit_on_failure)
 
 """
 Open @pathname expecting it to be CSV valid and returns its content as dict
 """
 def parse_csv(pathname, exit_on_failure=False):
-    raise Exception("not implemented")
+
+    def __parse_csv(content):
+        reader = csv_reader(content, delimiter=',')
+        next(reader, None) # skip header line
+        res = []
+        for row in reader:
+            if row != None and '' not in row:
+                res.append(row)
+            else:
+                logging.warning(f'row {row} invalid - skipped')
+        return res
+    return __read_and_parse(pathname, __parse_csv, exit_on_failure)
 
 """
 Open & handle @pathname properly
@@ -31,21 +45,13 @@ def __read_and_parse(pathname, parse_fn, exit_on_failure):
 
     # Open file
     try:
-        file = open(pathname, 'r')
+        file = open(pathname, 'r', newline='')
     except Exception as e:
         print_error_and_exit_if_necessary('Failed to open', e)
 
-    # Read file
-    try:
-        file_content = file.read()
-    except Exception as e:
-        print_error_and_exit_if_necessary('Failed to read', e)
-    finally:
-        file.close()
-
     # Parse file
     try:
-        return parse_fn(file_content)
+        return parse_fn(file)
     except Exception as e:
         print_error_and_exit_if_necessary('Failed to parse', e)
     finally:

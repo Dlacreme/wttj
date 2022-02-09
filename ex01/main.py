@@ -11,6 +11,7 @@ import logging
 from argparse import ArgumentParser
 from sys import argv
 from geolocation import Geolocation
+from analyzer import Analyzer
 
 # Default log level to display
 DEFAULT_LOGGING_LEVEL = logging.INFO
@@ -23,7 +24,10 @@ def main():
     args = vars(get_args())
     set_logs(args['log'])
     # Geolocation loads continents' data and preovide helpers to deal with geolocation
-    geo_helper = Geolocation(args['continents'])
+    geolocation = Geolocation(args['continents'])
+    analyzer = Analyzer(geolocation)
+    analyzer.load_professions_from(args["professions"])
+    analyzer.load_jobs_from(args["jobs"])
 
 """
 Prepare the parser & set helpers for the scripts
