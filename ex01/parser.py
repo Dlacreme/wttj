@@ -5,7 +5,7 @@ from json import loads as json_loads
 Open @pathname expecting it to be JSON valid and returns its content as dict
 """
 def parse_json(pathname, exit_on_failure=False):
-    return read_and_parse(pathname, json_loads, exit_on_failure)
+    return __read_and_parse(pathname, json_loads, exit_on_failure)
 
 """
 Open @pathname expecting it to be CSV valid and returns its content as dict
@@ -15,12 +15,12 @@ def parse_csv(pathname, exit_on_failure=False):
 
 """
 Open & handle @pathname properly
-Process data using @parse_fn
+Parse data using @parse_fn
 
-@parse_fn must take a single arguments (which is the content of the file as a string)
-    and return the parsed data. It should raise an exception in case the parsing failed.
+@parse_fn must take a single argument (which is the content of the file as a string)
+    and return the parsed data. It should raise an exception if the parsing failed.
 """
-def read_and_parse(pathname, parse_fn, exit_on_failure):
+def __read_and_parse(pathname, parse_fn, exit_on_failure):
 
     # In case of error - we print the errors & stacktrace and exit if necessary
     def print_error_and_exit_if_necessary(error, inner_error):

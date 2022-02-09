@@ -15,6 +15,7 @@ class Geolocation:
         logging.debug(f'Load continent from {coords_pathname}')
         continents_data = parse_json(coords_pathname, exit_on_failure=True)
         try:
+            # build a list of <class>Continent from our set of data
             self.continents = list(map(
                 Continent,
                 continents_data
@@ -26,13 +27,18 @@ class Geolocation:
         self.__print_continents()
 
     """
-    We
+    We loop through all the continents and check if the point is in or out
+    Returns the first match or None if nothing matches
     """
     def get_continent_from_lat_and_lon(self, lat, lon):
         for cont in self.continents:
             if cont.is_coord_in(lat, lon):
                 return cont
+        return None
 
+    """
+    Print each continents if the logging system is set to DEBUG
+    """
     def __print_continents(self):
         if logging.root.level <= logging.DEBUG:
             for cont in self.continents:
