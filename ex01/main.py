@@ -38,6 +38,7 @@ def main():
     analyzer.load_professions_from(args["professions"])
     analyzer.load_jobs_from(args["jobs"])
     res = analyzer.aggregate()
+    print(res)
 
 """
 Prepare the parser & set helpers for the scripts

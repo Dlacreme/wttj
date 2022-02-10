@@ -1,6 +1,6 @@
 """
 Geolocation is hard to test using the provided set of data.
-Therefore I have a set of fixed test to make sure the Geolocation system is working fine.
+Therefore I have here a smaller set of data to make sure the Geolocation system is working fine.
 
 I usually use a testing library to do such tests but I don't think it is necessary here.
 """
@@ -74,6 +74,12 @@ def test_continent(continent_code):
     for city in cities:
         continent = geolocation.get_continent_from_lat_and_lon(
             city['coord']['lat'], city['coord']['lon'])
+        """
+        if the continent found is the continent currently being tested
+        then the city.continent_code should also be the same
+
+        If not, test failed.
+        """
         if continent.code == continent_code and city['continent_code'] != continent_code:
             print(f'Invalid match for {city["label"]} in {continent_code}')
             return False
