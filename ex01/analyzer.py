@@ -10,11 +10,12 @@ class Analyzer:
     This allow to have a quick access to a profession and easily join the data with a job
     """
 
-    def __init__(self, geolocation):
+    def __init__(self, geolocation, exit_on_invalid_input=False):
         self.geolocation = geolocation
         self.jobs = None
         self.professions = {}
         self.profession_categories = set([])
+        self.exit_on_invalid_input = exit_on_invalid_input
 
     """
     Read the CSV file and parse rows into a readable dict
@@ -27,7 +28,7 @@ class Analyzer:
                 'category_name': array[2]
             }
 
-        for profession in map(read_profession, parse_csv(pathname)):
+        for profession in map(read_profession, parse_csv(pathname, exit_on_failure=True, exit_on_invalid=self.exit_on_invalid_input)):
             # store profession
             self.professions[profession['id']] = profession
             # add the category
@@ -39,25 +40,21 @@ class Analyzer:
     """
     def load_jobs_from(self, pathname):
         def read_continent(row):
-            try:
-                lat = float(row[3])
-                lon = float(row[4])
-                continent = self.geolocation.get_continent_from_lat_and_lon(lat, lon)
-                return {
-                    'profession_id': int(row[0]),
-                    'contract_type': row[1],
-                    'name': row[2],
-                    'lat': lat,
-                    'lon': lon,
-                    'continent': continent.label if continent != None else "Undefined"
-                }
-            except Exception as e:
-                logging.error(f'Invalid input {row[2]} (id: {row[0]}). Row ignored\n({e})')
-                logging.debug(f'\nROW:\n{row}\n')
-                pass
+            lat = float(row[3])
+            lon = float(row[4])
+            continent = self.geolocation.get_continent_from_lat_and_lon(lat, lon)
+            return {
+                'profession_id': int(row[0]),
+                'contract_type': row[1],
+                'name': row[2],
+                'lat': lat,
+                'lon': lon,
+                'continent': continent.label if continent != None else "Undefined"
+            }
+
         self.jobs = DataFrame(list(map(
                 read_continent,
-                parse_csv(pathname)
+                parse_csv(pathname, exit_on_failure=True, exit_on_invalid=self.exit_on_invalid_input)
             )))
 
     def group_by_professions_category_and_count(self, jobs):

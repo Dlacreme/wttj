@@ -13,8 +13,7 @@ def parse_json(pathname, exit_on_failure=False):
 """
 Open @pathname expecting it to be CSV valid and returns its content as dict
 """
-def parse_csv(pathname, exit_on_failure=False):
-
+def parse_csv(pathname, exit_on_failure=False, exit_on_invalid=False):
     def __parse_csv(content):
         reader = csv_reader(content, delimiter=',')
         next(reader, None) # skip header line
@@ -23,7 +22,10 @@ def parse_csv(pathname, exit_on_failure=False):
             if row != None and '' not in row:
                 res.append(row)
             else:
-                logging.warning(f'row {row} invalid - skipped')
+                logging.warning(f'INVALID ROW: {row} {"- EXIT" if exit_on_failure else "- IGNORED"}')
+                if exit_on_failure:
+                    exit()
+
         return res
     return __read_and_parse(pathname, __parse_csv, exit_on_failure)
 

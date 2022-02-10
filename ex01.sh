@@ -17,6 +17,7 @@ then
                 -jobs ../appendix/technical-test-jobs.csv \
                 -professions ../appendix/technical-test-professions.csv \
                 -continents ./continent_coords.json \
+                -exitoninvalidinput true \
                 -log DEBUG
             )
         ;;
