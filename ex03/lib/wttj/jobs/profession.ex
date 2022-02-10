@@ -5,10 +5,10 @@ defmodule WTTJ.Jobs.Profession do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "professions" do
-    field :label, :string
+    field(:label, :string)
 
-    belongs_to :category, WTTJ.Jobs.Category, type: :binary
-    has_many :offers, WTTJ.Jobs.Offer
+    belongs_to(:category, WTTJ.Jobs.Category, type: :binary_id)
+    has_many(:offers, WTTJ.Jobs.Offer)
   end
 
   @doc false

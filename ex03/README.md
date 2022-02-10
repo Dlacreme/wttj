@@ -10,6 +10,7 @@ You can install the dependencies & import the data using the following command:
 $ mix setup
 ```
 **Note, I've been using the script from ex01 to import the data**
+**It takes a few minutes to import all offers**
 
 Run the server
 ```shell

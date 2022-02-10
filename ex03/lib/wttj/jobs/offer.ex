@@ -5,12 +5,12 @@ defmodule WTTJ.Jobs.Offer do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "offers" do
-    field :contract_type, :string
-    field :label, :string
-    field :lat, :float
-    field :lon, :float
-    field :continent, :string
-    belongs_to :profession, WTTJ.Jobs.Profession, type: :binary
+    field(:contract_type, :string)
+    field(:label, :string)
+    field(:lat, :float)
+    field(:lon, :float)
+    field(:continent, :string)
+    belongs_to(:profession, WTTJ.Jobs.Profession, type: :binary_id)
 
     timestamps()
   end

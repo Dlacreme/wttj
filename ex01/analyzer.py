@@ -19,7 +19,7 @@ class Analyzer:
         self.jobs = None
         # store our professions as a map to keep a quick access via ID
         self.professions = {}
-        # store the categories as automatically remove duplicate
+        # store the categories as a set to automatically remove duplicate
         self.profession_categories = set([])
         # store the categories and professions mapping as a map
         self.profession_category_mapping = {}
@@ -99,3 +99,20 @@ class Analyzer:
             ])
 
         return root
+
+    def get_categories(self):
+        def transform(category):
+            return category
+        return list(map(
+            transform,
+            self.profession_categories
+        ))
+
+    def get_professions(self):
+        res = []
+        for key in self.professions:
+            res.append(self.professions[key])
+        return res
+
+    def get_jobs(self):
+        return self.jobs.to_dict(orient='records')

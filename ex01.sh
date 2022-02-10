@@ -20,6 +20,15 @@ then
                 -log DEBUG
             )
         ;;
+        seed)
+            (cd ex01; \
+                python main.py \
+                -jobs ../appendix/technical-test-jobs.csv \
+                -professions ../appendix/technical-test-professions.csv \
+                -continents ./continent_coords.json \
+                -seed true
+            )
+        ;;
         test)
             (cd ex01; \
                 python ./test_geolocation.py
