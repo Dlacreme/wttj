@@ -9,7 +9,7 @@ You can install the dependencies & import the data using the following command:
 ```shell
 $ mix setup
 ```
-**Note, I've been using the script from ex01 to import the data**
+**Notes: I've been using the script from ex01 to import the data**
 **It takes a few minutes to import all offers**
 
 Run the server
@@ -23,6 +23,7 @@ Run the tests:
 ```
 $ mix test
 ```
+**Notes: I am sorry but I didn't have time to write many tests**
 
 ## Documentation
 
@@ -49,7 +50,7 @@ $ mix test
 You can search among the category by adding the field you want to perform the search and the value you are looking for:
 ```bash
 # Returns a list of categories with `tech` in name
-$ curl http://localhost:4000/category?name=Tech
+$ curl http://localhost:4000/category?label=Tech
 ```
 
 **Add associations**
