@@ -19,6 +19,7 @@ from argparse import ArgumentParser
 from sys import argv
 from geolocation import Geolocation
 from analyzer import Analyzer
+from output import pretty_print_result
 
 # Default log level to display
 DEFAULT_LOGGING_LEVEL = logging.INFO
@@ -37,8 +38,9 @@ def main():
     analyzer = Analyzer(geolocation, exit_on_invalid_input=args['exitoninvalidinput'])
     analyzer.load_professions_from(args["professions"])
     analyzer.load_jobs_from(args["jobs"])
-    res = analyzer.aggregate()
-    print(res)
+    pretty_print_result(
+        analyzer.aggregate()
+    )
 
 """
 Prepare the parser & set helpers for the scripts

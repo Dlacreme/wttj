@@ -8,6 +8,8 @@ class Analyzer:
 
     Because we don't have a lot of professions, we store the professions as a dict using its ID as key.
     This allow to have a quick access to a profession and easily join the data with a job
+
+    Pandas DataFrame doc: https://pandas.pydata.org/docs/reference/frame.html
     """
 
     def __init__(self, geolocation, exit_on_invalid_input=False):
@@ -62,7 +64,7 @@ class Analyzer:
                 'name': row[2],
                 'lat': lat,
                 'lon': lon,
-                'continent': continent.label if continent != None else "Undefined"
+                'continent': continent.code if continent != None else "Undefined"
             }
 
         self.jobs = DataFrame(list(map(
@@ -70,12 +72,24 @@ class Analyzer:
                 parse_csv(pathname, exit_on_failure=True, exit_on_invalid=self.exit_on_invalid_input)
             )))
 
+    # Aggregate a set of jobs and group them by category
     def group_by_professions_category_and_count(self, jobs):
+        res = {}
         for category in self.profession_categories:
-            print(f'count for {category}')
-            print(f'has categories > {self.profession_category_mapping[category]}')
+            category_jobs = jobs[
+                jobs.profession_id.isin(self.profession_category_mapping[category])
+            ]
+            res[category] = len(category_jobs.index)
+        return res
 
+    # Aggregate the data to build the final result
     def aggregate(self):
-        {
+        root = {
             'total': self.group_by_professions_category_and_count(self.jobs)
         }
+        for (code, label) in self.geolocation.list_continents():
+            root[label] = self.group_by_professions_category_and_count(self.jobs[
+                self.jobs.continent.eq(code)
+            ])
+
+        return root

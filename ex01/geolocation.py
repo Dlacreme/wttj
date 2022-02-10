@@ -34,3 +34,15 @@ class Geolocation:
             if cont.is_coord_in(lat, lon):
                 return cont
         return None
+
+    """
+    List all available continents
+    """
+    def list_continents(self):
+        def get_label_and_code(continent):
+            return (continent.code, continent.label)
+
+        return list(map(
+            get_label_and_code,
+            self.continents
+        ))
