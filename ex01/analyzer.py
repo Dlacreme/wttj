@@ -12,10 +12,15 @@ class Analyzer:
 
     def __init__(self, geolocation, exit_on_invalid_input=False):
         self.geolocation = geolocation
-        self.jobs = None
-        self.professions = {}
-        self.profession_categories = set([])
         self.exit_on_invalid_input = exit_on_invalid_input
+        # store the jobs as <pandas>DataFrame
+        self.jobs = None
+        # store our professions as a map to keep a quick access via ID
+        self.professions = {}
+        # store the categories as automatically remove duplicate
+        self.profession_categories = set([])
+        # store the categories and professions mapping as a map
+        self.profession_category_mapping = {}
 
     """
     Read the CSV file and parse rows into a readable dict
@@ -28,11 +33,19 @@ class Analyzer:
                 'category_name': array[2]
             }
 
+        def add_profession_category_mapping(category_name, profession_id):
+            if category_name not in self.profession_category_mapping:
+                self.profession_category_mapping[category_name] = []
+                return add_profession_category_mapping(category_name, profession_id)
+            self.profession_category_mapping[category_name].append(profession_id)
+
         for profession in map(read_profession, parse_csv(pathname, exit_on_failure=True, exit_on_invalid=self.exit_on_invalid_input)):
             # store profession
             self.professions[profession['id']] = profession
             # add the category
             self.profession_categories.add(profession['category_name'])
+            # add the mapping
+            add_profession_category_mapping(profession['category_name'], profession['id'])
 
     """
     Read the CSV file and parse rows into a readable dict
@@ -60,6 +73,7 @@ class Analyzer:
     def group_by_professions_category_and_count(self, jobs):
         for category in self.profession_categories:
             print(f'count for {category}')
+            print(f'has categories > {self.profession_category_mapping[category]}')
 
     def aggregate(self):
         {

@@ -22,14 +22,19 @@ $ python main.py \
     -jobs ../appendix/technical-test-jobs.csv \
     -professions ../appendix/technical-test-professions.csv \
     -continents ./continent_coords.json \
+    -exitoninvalidinput false \
     -log DEBUG
 ```
 
-**Please note invalid rows are ignored. They are displayed as 'warning'. They can be shown or hidden by using correctly the `-log` argument**
+**Please note invalid rows are ignored by default. They are displayed as 'warning'. They can be shown or hidden by using correctly the `-log` argument**
 
 ## Geolocation
 
 The tricky part here is clearly about finding the continent. I came up with 3 solutions:
+
+Notes:
+ - `test_geolocation.py` are some poor unit tests to confirm the geolocation feature is working
+ - we could improve this script by returning a % of match for continent (by checking how close the position is from the border) and raise a warning if the match is not high enough
 
 ### Postgres
 

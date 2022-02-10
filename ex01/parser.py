@@ -23,7 +23,7 @@ def parse_csv(pathname, exit_on_failure=False, exit_on_invalid=False):
                 res.append(row)
             else:
                 logging.warning(f'INVALID ROW: {row} {"- EXIT" if exit_on_failure else "- IGNORED"}')
-                if exit_on_failure:
+                if exit_on_invalid:
                     exit()
 
         return res
