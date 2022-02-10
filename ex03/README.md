@@ -1,19 +1,93 @@
-# WTTJ
+# WTTJ - Jobs API
 
-To start your Phoenix server:
+We are going to expose the Jobs/Professions data through a Elixir/Phoenix API.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+## Run is on your local
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+You can install the dependencies & import the data using the following command:
+```shell
+$ mix setup
+```
+**Note, I've been using the script from ex01 to import the data**
 
-## Learn more
+Run the server
+```shell
+$ mix phx.server
+```
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+## Test
+
+Run the tests:
+```
+$ mix test
+```
+
+## Documentation
+
+### Categories
+
+#### Format
+```json
+{
+    "id": 42,
+    "label": "Ultimate category",
+    "professions": [] // [optionnal] see `Optionnal parameters` section for more details
+}
+```
+
+#### Endpoints
+
+- `/category` -> list of categories
+- `/category/:id` -> a single category
+
+#### Optionnal parameters
+
+**Search**
+
+You can search among the category by adding the field you want to perform the search and the value you are looking for:
+```bash
+# Returns a list of categories with `tech` in name
+$ curl http://localhost:4000/category?name=Tech
+```
+
+**Add associations**
+
+You can include the related professions by adding the `with_professions` parameter:
+```bash
+# Returns all the category and include the related professions
+$ curl http://localhost:4000/category?with_professions=true
+```
+
+### Professions
+
+#### Format
+```json
+{
+    "id": 1024,
+    "label": "Software Engineer",
+    "category_id": 42,
+    "category": {} // [optionnal] see `Optionnal parameters` for more details
+}
+```
+
+#### Endpoints
+
+- `/profession` -> list of professions
+- `/profession/:id` -> a single profession
+
+#### Optionnal parameters
+
+**Search**
+
+You can perform a search by adding the fiel you want to perform the search and the value you are looking for:
+```bash
+$ curl http://localhost:4000/profession?name=war
+```
+
+**Add associations**
+
+You can include the related category by adding the `with_category` parameter:
+```bash
+$ curl http://localhost:4000/profession?with_category=true
+```

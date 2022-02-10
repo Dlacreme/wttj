@@ -34,7 +34,8 @@ defmodule WTTJ.MixProject do
       {:ecto_sql, "~> 3.6"},
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:geo_postgis, "~> 3.4"}
     ]
   end
 
@@ -42,7 +43,7 @@ defmodule WTTJ.MixProject do
   defp aliases do
     [
       setup: ["deps.get", "ecto.setup", "write_import"],
-			write_import: ["echo 'import using python'"],
+      write_import: ["echo 'import using python'"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
