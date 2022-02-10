@@ -4,6 +4,7 @@ defmodule WTTJ.Jobs.Categories do
   """
   alias WTTJ.Repo
   alias WTTJ.Jobs.Category
+  alias WTTJ.Helpers.Ecto, as: EctoHelpers
 
   import Ecto.Query
 
@@ -19,8 +20,7 @@ defmodule WTTJ.Jobs.Categories do
   def filter(opts) do
     Category
     |> maybe_add_professions(opts)
-    |> apply_filter(opts)
-    |> tap(&IO.puts(inspect(WTTJ.Debug.query_to_sql(&1))))
+    |> EctoHelpers.apply_filters(Category, opts)
     |> Repo.all()
   end
 
@@ -33,29 +33,4 @@ defmodule WTTJ.Jobs.Categories do
 
   defp maybe_add_professions(query, _params),
     do: query
-
-  defp apply_filter(query, opts) do
-    fields_to_filter =
-      Category.__schema__(:fields)
-      # do not let filter on id
-      |> Enum.filter(&(&1 != :id))
-      |> Enum.filter(&Map.has_key?(opts, Atom.to_string(&1)))
-
-    query
-    |> add_filters(fields_to_filter, opts)
-  end
-
-  defp add_filters(query, [], _opts), do: query
-
-  defp add_filters(query, [field | tail], opts) do
-    value =
-      opts
-      |> Map.get(Atom.to_string(field), "")
-
-    like_value = "%#{value}%"
-
-    query
-    |> where([c], ilike(field(c, ^field), ^like_value))
-    |> add_filters(tail, opts)
-  end
 end
