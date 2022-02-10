@@ -21,8 +21,6 @@ end
 
 defimpl Jason.Encoder, for: WTTJ.Jobs.Category do
   def encode(value, opts) do
-    IO.puts("VALUE > #{inspect(value)}")
-
     value
     |> Map.take(get_keys(value))
     |> Jason.Encode.map(opts)
