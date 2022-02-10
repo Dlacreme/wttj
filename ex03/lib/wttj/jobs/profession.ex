@@ -4,6 +4,7 @@ defmodule WTTJ.Jobs.Profession do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
+  @derive {Jason.Encoder, only: [:id, :label]}
   schema "professions" do
     field(:label, :string)
 
