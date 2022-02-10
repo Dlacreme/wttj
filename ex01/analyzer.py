@@ -72,6 +72,12 @@ class Analyzer:
                 parse_csv(pathname, exit_on_failure=True, exit_on_invalid=self.exit_on_invalid_input)
             )))
 
+        jobs_with_no_continent_count = len(self.jobs[
+            self.jobs.continent.eq("Undefined")
+        ].index)
+        if jobs_with_no_continent_count > 0:
+            logging.warning(f'{jobs_with_no_continent_count} jobs with unknown continents')
+
     # Aggregate a set of jobs and group them by category
     def group_by_professions_category_and_count(self, jobs):
         res = {}
