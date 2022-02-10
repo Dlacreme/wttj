@@ -18,3 +18,20 @@ defmodule WTTJ.Jobs.Category do
     |> validate_required([:label])
   end
 end
+
+defimpl Jason.Encoder, for: WTTJ.Jobs.Category do
+  def encode(value, opts) do
+    IO.puts("VALUE > #{inspect(value)}")
+
+    value
+    |> Map.take(get_keys(value))
+    |> Jason.Encode.map(opts)
+  end
+
+  def get_keys(value) do
+    case Map.get(value, :professions) do
+      %Ecto.Association.NotLoaded{} -> [:id, :label]
+      _ -> [:id, :label, :professions]
+    end
+  end
+end

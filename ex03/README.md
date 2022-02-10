@@ -17,6 +17,11 @@ Run the server
 $ mix phx.server
 ```
 
+## Architecture
+
+I follow the Phoenix standards. However I use plural for contexts to avoid shadowing the schemas' names.
+See more: https://elixirforum.com/t/do-you-organize-separate-your-ecto-schemas/44603/2
+
 ## Test
 
 Run the tests:
