@@ -30,7 +30,7 @@ def __format(value, min_length=COLUMN_LENGTH):
 
 def __sort(data):
     res = {}
-    for k in sorted(data, key=len):
+    for k in data:
         sorted_content = {}
         for c in sorted(data[k], key=len):
             sorted_content[c] = data[k][c]
