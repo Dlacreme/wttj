@@ -2,7 +2,7 @@
 
 After some research, I came up with 2 solutions. Both of them are valid and in a professional context, I would discuss the 2 options with my teammates to pick the best one.
 
-### Software oriented - Lambda architecture
+### Homemade oriented - Lambda architecture
 Reference: https://databricks.com/glossary/lambda-architecture
 
 Lambda architure is a simple concept that helps processing massive quantities of data while providing a real time access to the incoming. The idea is simply to have 2 different pipeline handling simulteanously the incoming data. However one handle the data by batch (takes longer but write the data) and the other process the data as a stream.
@@ -34,3 +34,13 @@ We can store the final result either in a Data Warehouse or Hadoop. We could als
 Optionally, we can keep a REDIS with some computed data to have a real time dashboard.
 
 Finally, we can plug our own softwares to either REDIS or STORM to trigger events or display reports.
+
+#### Pros
+
+ - reliable: those software are flawless
+ - optimized: this offer the most optimized components
+ - open-source: can be cheap if we stick to open source
+
+#### Cons
+
+ - Hard to maintain and setup
