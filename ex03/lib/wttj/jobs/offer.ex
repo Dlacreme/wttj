@@ -22,3 +22,11 @@ defmodule WTTJ.Jobs.Offer do
     |> validate_required([:profession_id, :contract_type, :label, :lat, :lon, :continent])
   end
 end
+
+defimpl Jason.Encoder, for: WTTJ.Jobs.Offer do
+  def encode(value, opts) do
+    value
+    |> Map.take([:label, :contract_type, :continent])
+    |> Jason.Encode.map(opts)
+  end
+end

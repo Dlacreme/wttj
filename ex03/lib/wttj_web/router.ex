@@ -24,4 +24,10 @@ defmodule WTTJWeb.Router do
     get "/", Controllers.Profession, :list
     get "/:id", Controllers.Profession, :get
   end
+
+  scope "/offer", WTTJWeb do
+    pipe_through :api
+
+    get "/:id", Controllers.Offer, :get
+  end
 end

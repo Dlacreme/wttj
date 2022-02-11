@@ -54,7 +54,7 @@ $ mix test
 
 **Search**
 
-You can search among the category by adding the field you want to perform the search on and the value you are looking for ():
+You can search among the category by adding the field you want to perform the search on and the value you are looking for:
 ```bash
 # Returns a list of categories with `tec` in name
 $ curl http://localhost:4000/category?label=Tec
@@ -71,7 +71,7 @@ $ curl http://localhost:4000/category?with_professions=true
 
 **Combo**
 
-You can combile optional parameters:
+You can combine optional parameters:
 ```bash
 $ curl http://localhost:4000/category?label=tec&with_professions=true
 ```
@@ -97,7 +97,7 @@ $ curl http://localhost:4000/category?label=tec&with_professions=true
 
 **Search**
 
-You can perform a search by adding the fiel you want to perform the search and the value you are looking for:
+You can perform a search by adding the field you want to perform the search on and the value you are looking for:
 ```bash
 $ curl http://localhost:4000/profession?name=war
 ```
@@ -111,7 +111,7 @@ $ curl http://localhost:4000/profession?with_category=true
 
 **Combo**
 
-You can combile optional parameters:
+You can combine optional parameters:
 ```bash
 $ curl http://localhost:4000/profession?label=tec&with_category=true
 ```
