@@ -15,7 +15,7 @@ Dependencies:
  - `shapely` & `pandas`. You can install the dependencies using `pip install -r ./requirements.txt` (I suggest using virtualenv)
  - GEOS: dependency of `shapely`, a python library used for processing geo location positions
 
-You will find more details on how to run the python script in `ex01/README.md`, however I made a small shell script to run some it from this folder:
+You will find more details on how to run the python script in `ex01/README.md`, however I made a small shell script to run the python script from this folder:
 
 | COMMAND            | DESCRIPTION                           |
 | ------------------ | ------------------------------------- |
