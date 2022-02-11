@@ -4,7 +4,6 @@ defmodule WTTJ.Jobs.Category do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  @derive {Jason.Encoder, only: [:id, :label]}
   schema "categories" do
     field :label, :string, size: 512
 
