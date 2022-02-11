@@ -13,7 +13,7 @@ defmodule WTTJ.Jobs.Categories do
     Category
     |> where([c], c.id == ^id)
     |> maybe_add_professions(opts)
-    |> Repo.all()
+    |> Repo.one()
   end
 
   @spec filter(any()) :: list(Category.t())
