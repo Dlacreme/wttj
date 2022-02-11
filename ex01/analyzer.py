@@ -6,8 +6,8 @@ class Analyzer:
     """
     Load the lists of professions & jobs and use pandas to process the data
 
-    Because we don't have a lot of professions, we store the professions as a dict using its ID as key.
-    This allow to have a quick access to a profession and easily join the data with a job
+    Because we don't have a lot of professions, we store the professions as a dict using ID as key.
+    This provide a quick access to a profession and let us quickly map an offer with a profession
 
     Pandas DataFrame doc: https://pandas.pydata.org/docs/reference/frame.html
     """
@@ -21,11 +21,11 @@ class Analyzer:
         self.professions = {}
         # store the categories as a set to automatically remove duplicate
         self.profession_categories = set([])
-        # store the categories and professions mapping as a map
+        # store the categories and professions mapping
         self.profession_category_mapping = {}
 
     """
-    Read the CSV file and parse rows into a readable dict
+    Read the CSV file, parse rows and store the category & professions data
     """
     def load_professions_from(self, pathname):
         def read_profession(array):
@@ -50,8 +50,7 @@ class Analyzer:
             add_profession_category_mapping(profession['category_name'], profession['id'])
 
     """
-    Read the CSV file and parse rows into a readable dict
-    Also add the continent to each row
+    Read the CSV file, parse & add continent to each rows & store the result as pandas DataFrame
     """
     def load_jobs_from(self, pathname):
         def read_continent(row):
@@ -78,7 +77,9 @@ class Analyzer:
         if jobs_with_no_continent_count > 0:
             logging.warning(f'{jobs_with_no_continent_count} jobs with unknown continents')
 
-    # Aggregate a set of jobs and group them by category
+    """
+    Aggregate a set of jobs and group them by category
+    """
     def group_by_professions_category_and_count(self, jobs):
         res = {}
         for category in self.profession_categories:
@@ -88,8 +89,10 @@ class Analyzer:
             res[category] = len(category_jobs.index)
         return res
 
-    # Aggregate the data to build the final result
-    def aggregate(self):
+    """
+    Aggregate the data to build the final report
+    """
+    def report(self):
         root = {
             'total': self.group_by_professions_category_and_count(self.jobs)
         }
@@ -100,6 +103,9 @@ class Analyzer:
 
         return root
 
+    """
+    return the categories as list
+    """
     def get_categories(self):
         def transform(category):
             return category
@@ -108,11 +114,17 @@ class Analyzer:
             self.profession_categories
         ))
 
+    """
+    return the professions as list
+    """
     def get_professions(self):
         res = []
         for key in self.professions:
             res.append(self.professions[key])
         return res
 
+    """
+    return the jobs as list
+    """
     def get_jobs(self):
         return self.jobs.to_dict(orient='records')

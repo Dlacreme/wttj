@@ -4,8 +4,8 @@ class Continent:
     """
     Represent a single continent and provide helpers to run geolocation calculus
 
-    Each continents has an array of <shapely>Polygon that represents their perimeters.
-    We then use the method <shapely>Polygin.contains to check if a position is in or out of the continent
+    Each continents has an array of <shapely>Polygon that represents their area.
+    We then use the method <shapely>Polygon.contains to check if a position is in or out of the continent
     """
 
     def __init__(self, continent_data):

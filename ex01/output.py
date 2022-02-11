@@ -10,7 +10,6 @@ Print the result expected for ex01
 @data is an object with the continent as key and a category_name with the total of match as value
 """
 def pretty_print_result(raw_data):
-    print("\n")
     data = __sort(raw_data)
     __print_header(data)
     for key in data:

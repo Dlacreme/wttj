@@ -1,6 +1,6 @@
 # WTTJ - Jobs API
 
-We are going to expose the Jobs/Professions data through a Elixir/Phoenix API.
+We are going to expose the data through a Elixir/Phoenix API.
 
 ## Run it on local
 
@@ -20,9 +20,9 @@ $ mix phx.server
 
  - Follow Phoenix standards (use phx.gen to generate files)
  - Contexts & helpers should be in plural to avoid shadowing schemas (https://elixirforum.com/t/do-you-organize-separate-your-ecto-schemas/44603/2)
- - Use self-explanatory variable& module names
- - Comments only for complex or business related piece of codes
- - Add specs to public helper functions
+ - Use self-explanatory variable & module names
+ - Comment only complex or business related piece of codes
+ - Add specs to public functions
 
 ## Test
 
@@ -30,7 +30,6 @@ Run the tests:
 ```
 $ mix test
 ```
-**Notes: I am sorry but I didn't have time to write many tests**
 
 ## API Documentation
 

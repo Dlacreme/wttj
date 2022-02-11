@@ -8,6 +8,10 @@ defmodule WTTJ.Jobs.Professions do
 
   import Ecto.Query
 
+  @doc """
+  Get a single Profession by ID or nil
+  Optionally load related category if @params.with_category is defined
+  """
   @spec get(binary(), any()) :: Profession.t() | nil
   def get(id, opts) do
     Profession
@@ -16,6 +20,11 @@ defmodule WTTJ.Jobs.Professions do
     |> Repo.one()
   end
 
+  @doc """
+  Return a list of Profession
+  Optionally filters on fields with @params. See WTTJ.Helpers.Ecto.apply_filters
+  Optionally load related category if @params.with_category is defined
+  """
   @spec filter(any()) :: list(Profession.t())
   def filter(opts) do
     Profession

@@ -18,11 +18,6 @@ defmodule WTTJ.Jobs do
   Compute offers & group them by continent & category name
   """
   def report() do
-    # 	SELECT c.label, o.continent, COUNT(o.id)
-    # 	FROM offers o
-    # 		LEFT JOIN professions p ON o.profession_id = p.id
-    # 		LEFT JOIN categories c ON p.category_id = c.id
-    # 	GROUP BY c.label, o.continent;
     data =
       from(o in Offer,
         left_join: p in assoc(o, :profession),

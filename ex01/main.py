@@ -38,10 +38,9 @@ def main():
 
     # 4. output the result
     if args['seed'] == False:
-        pretty_print_result(
-            analyzer.aggregate()
-        )
+        pretty_print_result(analyzer.report())
     else:
+        # small option added to generate an for EX03
         print_seed(analyzer.get_categories(), analyzer.get_professions(), analyzer.get_jobs())
 
 """
