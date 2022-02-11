@@ -9,9 +9,11 @@ defmodule WTTJ.Helpers.Ecto do
   @default_page_number "1"
 
   @doc """
-  Apply @params as like queries to @query
+  Apply @params as a `where` statement to @query
+  %{"label" => "toto"} will apply an ILIKE on the field `label`
+  %{"category_id => uid} will apply a strict eq contition on the field `category_id`
   """
-  @spec apply_filters(Ecto.Query.t(), atom, any) :: Ecto.Query.t()
+  @spec apply_filters(Ecto.Query.t(), any, any) :: Ecto.Query.t()
   def apply_filters(query, schema, params) do
     fields_to_filter = get_matching_schema_field(schema, params)
     query |> add_filters(fields_to_filter, params)
@@ -29,6 +31,10 @@ defmodule WTTJ.Helpers.Ecto do
 
   @doc """
   Add pagination to a large query
+
+  You can change the page_size or page_number with @params
+  %{"page_size" => "2", "page_number" => "4"} will split the result in page of 2 items
+  	and load the 4th page
   """
   @spec apply_pagination(Ecto.Query.t(), any) :: Ecto.Query.t()
   def apply_pagination(query, params) do

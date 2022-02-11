@@ -8,6 +8,9 @@ defmodule WTTJ.Jobs.Offers do
 
   import Ecto.Query
 
+  @doc """
+  Returns a single Offer or nil
+  """
   @spec get(binary(), any()) :: Offer.t() | nil
   def get(id, _opts) do
     Offer
@@ -15,6 +18,11 @@ defmodule WTTJ.Jobs.Offers do
     |> Repo.one()
   end
 
+  @doc """
+  Returns a list of Offer
+   - how to filter: see WTTJ.Helpers.Ecto.apply_filters
+   - pagination: see WTTJ.Helpers.Ecto.apply_pagination
+  """
   @spec filter(any()) :: list(Offer.t())
   def filter(opts) do
     Offer
