@@ -40,6 +40,7 @@ else
         python main.py \
         -jobs ../appendix/technical-test-jobs.csv \
         -professions ../appendix/technical-test-professions.csv \
-        -continents ./continent_coords.json
+        -continents ./continent_coords.json \
+        -log CRITICAL
     )
 fi

@@ -26,7 +26,7 @@ $ python main.py \
     -log DEBUG
 ```
 
-**Please note invalid rows are ignored by default. They are displayed as 'warning'. They can be shown or hidden by using correctly the `-log` argument**
+**Please note invalid rows are ignored by default but are displayed as 'warning'. Use -log argument to show or hide the warnings**
 
 ## Geolocation
 

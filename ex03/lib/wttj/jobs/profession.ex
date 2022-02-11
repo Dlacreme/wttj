@@ -28,7 +28,7 @@ defimpl Jason.Encoder, for: WTTJ.Jobs.Profession do
 
   def get_keys(value) do
     case Map.get(value, :category) do
-      %Ecto.Association.NotLoaded{} -> [:id, :label]
+      %Ecto.Association.NotLoaded{} -> [:id, :label, :category_id]
       _ -> [:id, :label, :category]
     end
   end

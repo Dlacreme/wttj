@@ -7,12 +7,6 @@ Parameters:
  -continents pathname: JSON file with the geolocation details of each continent [optional]
  -log LOG_LEVEL: possible values 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'
  -exitoninvalidinput BOOL: either true or false
-
-Script flow:
- 1. prepare env - setup logger, check input & load data
- 2. precompute initial data to add the continent
- 3. group data by continents
- 4. output the result
 """
 import logging
 from argparse import ArgumentParser
@@ -23,21 +17,26 @@ from output import pretty_print_result, print_seed
 
 # Default log level to display
 DEFAULT_LOGGING_LEVEL = logging.INFO
-# We need at least 3 parameters: script name, job list & professions list
-MIN_ARGV_LENGTH = 3
 # We store continent paths into an external file to make it easier to maintain - NOTE: could also be a cli arg
 DEFAULT_CONTINENT_COORDS_PATHNAME = './continent_coords.json'
 # By default, we don't exit on invalid input and instead ignore the row
 DEFAULT_EXIT_ON_INVALID_INPUT = False
 
 def main():
+    # 1. prepare env - setup logger, check input & load data
     args = vars(get_args())
     set_logs(args['log'] if args['seed'] == False else logging.CRITICAL) # we hide all logs for seed
     # Geolocation loads continents' data and preovide helpers to deal with geolocation
+
+    # 2. precompute initial data to add the continent
     geolocation = Geolocation(args['continents'])
     analyzer = Analyzer(geolocation, exit_on_invalid_input=args['exitoninvalidinput'])
+
+    # 3. group data by continents
     analyzer.load_professions_from(args["professions"])
     analyzer.load_jobs_from(args["jobs"])
+
+    # 4. output the result
     if args['seed'] == False:
         pretty_print_result(
             analyzer.aggregate()
