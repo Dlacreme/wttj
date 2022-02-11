@@ -1,18 +1,36 @@
 # Scalability
 
-## First ideas
-
-With so many records, we can straight away forget about handling this only from the Database. Even though POSTGRESQL provides some great features for dealing with large set of data (BRIN index), we would never have a satisfying result.
-
-My second idea was to keep a state of the data in a REDIS and using the [INCR](https://redis.io/commands/INCR) function to keep our state up to date with the incoming data. Of course this means we need to setup a queue for the incoming offer and each entry would trigger a write in Database and an update of our REDIS state.
-This is a good solution if we need a quick result. However, I expect the state to quickly become desynchronized and we the output has no flexibility.
-
-## Final solutions
-
 After some research, I came up with 2 solutions. Both of them are valid and in a professional context, I would discuss the 2 options with my teammates to pick the best one.
 
 ### Software oriented - Lambda architecture
 Reference: https://databricks.com/glossary/lambda-architecture
 
-### Service orience - Big data pipeline
-Reference: http://vishnuviswanath.com/
+Lambda architure is a simple concept that helps processing massive quantities of data while providing a real time access to the incoming. The idea is simply to have 2 different pipeline handling simulteanously the incoming data. However one handle the data by batch (takes longer but write the data) and the other process the data as a stream.
+
+Finally the output of the 2 layer are processed by a 3rd layer that merges the results and returns a single result as output.
+
+![lambda schema](lambda.png)
+
+#### Pros
+
+ - homemade: since we develop each layers, we are the true owner of the system
+ - no software management: we don't have to deal with 3rd party software
+ - cheap: 3rd party can be expensive
+
+#### Cons
+
+ - complexity: this is neither easy to develop nor to maintain
+
+### Service oriented - Big data pipeline
+
+There is a much better solution relying on 3rd party software. This is basically a Big Data Pipeline. There are many existing system therefore many possibilities however I have something like this in mind:
+
+![pipeline schema](storm_pipeline.png)
+
+This system relies mostly on open source software from Apache. The major component is `APACHE STORM`. STORM is made to process large streams of data.
+The idea would be to use Storm to process the incoming offers (for example finding the continent of the offer) and then dispatch the result into different systems.
+
+We can store the final result either in a Data Warehouse or Hadoop. We could also push some data into a search system (here Solr but it could also be elasticsearch).
+Optionally, we can keep a REDIS with some computed data to have a real time dashboard.
+
+Finally, we can plug our own softwares to either REDIS or STORM to trigger events or display reports.
