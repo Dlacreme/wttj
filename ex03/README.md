@@ -61,6 +61,9 @@ $ curl http://localhost:4000/category?label=Tec
 ```
 *Notes: this is case insensitive (SQL ILIKE)*
 
+
+```
+
 **Add associations**
 
 You can include the related professions by adding the `with_professions` parameter:
@@ -140,6 +143,11 @@ You can search by adding the field you want to perform the search on and the val
 ```bash
 $ curl http://localhost:4000/offer?contract_type=ful&label=dev
 ```
+
+You can also filter on associations by using the association id:
+```bash
+# Return all offer with HR profession (with my seed)
+$ curl http://localhost:4000/offer?profession_id=4ef55d40-bd4f-42dd-bbf6-a36491a3a204
 
 **Pagination**
 
