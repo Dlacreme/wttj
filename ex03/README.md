@@ -115,3 +115,43 @@ You can combine optional parameters:
 ```bash
 $ curl http://localhost:4000/profession?label=tec&with_category=true
 ```
+
+### Offers
+
+#### Format
+```json
+{
+    "id": 18,
+    "label": "Fullstack web developer",
+    "contract_type": "FULL_TIME"
+}
+```
+
+#### Endpoints
+
+- `/offer` -> paginated list of offers
+- `offer/:id` -> a single offer
+
+#### Optional parameters
+
+**Search**
+
+You can search by adding the field you want to perform the search on and the value you are looking for:
+```bash
+$ curl http://localhost:4000/offer?contract_type=ful&label=dev
+```
+
+**Pagination**
+
+You can set the pagination with `page_size` & `page_number`. Page number starts at 1. By default, page_size is set to 20 and page_number to 1
+```bash
+$ http://localhost:4000/offer?page_size=4&page_number=2
+```
+
+**Combo**
+
+You can of course combine a search with a pagination
+
+```bash
+$ http://localhost:4000/offer?page_size=4&contract_type=ful&label=dev&page_number=2
+```

@@ -30,7 +30,6 @@ defmodule WTTJ.Helpers.Ecto do
   @doc """
   Add pagination to a large query
   """
-
   @spec apply_pagination(Ecto.Query.t(), any) :: Ecto.Query.t()
   def apply_pagination(query, params) do
     %{"page_size" => page_size, "page_number" => page_number} = with_pagination_params(params)
@@ -53,15 +52,25 @@ defmodule WTTJ.Helpers.Ecto do
   defp add_filters(query, [], _params), do: query
 
   defp add_filters(query, [field | tail], params) do
+    field_str = Atom.to_string(field)
+
     value =
       params
       |> Map.get(Atom.to_string(field), "")
 
-    like_value = "%#{value}%"
+    case String.ends_with?(field_str, "_id") do
+      false ->
+        like_value = "%#{value}%"
 
-    query
-    |> where([c], ilike(field(c, ^field), ^like_value))
-    |> add_filters(tail, params)
+        query
+        |> where([c], ilike(field(c, ^field), ^like_value))
+        |> add_filters(tail, params)
+
+      true ->
+        query
+        |> where([c], field(c, ^field) == ^value)
+        |> add_filters(tail, params)
+    end
   end
 
   defp with_pagination_params(params) do

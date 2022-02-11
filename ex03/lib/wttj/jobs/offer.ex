@@ -26,7 +26,7 @@ end
 defimpl Jason.Encoder, for: WTTJ.Jobs.Offer do
   def encode(value, opts) do
     value
-    |> Map.take([:label, :contract_type, :continent])
+    |> Map.take([:label, :contract_type, :continent, :profession_id])
     |> Jason.Encode.map(opts)
   end
 end
