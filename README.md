@@ -8,13 +8,6 @@ The answers and details of each exercise can be found directly in the README.md 
 
 ## Technical details
 
-### Run it on your local
-
-Dependencies for ex01:
-
-Dependencies for ex03:
- - Elixir for
-
 #### Ex01
 
 Dependencies:
