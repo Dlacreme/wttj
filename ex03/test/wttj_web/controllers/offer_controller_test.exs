@@ -34,8 +34,8 @@ defmodule WTTJWeb.OfferControllerTest do
     assert conn.status == 200
   end
 
-  test "list many with invalid pagination number should throw 404", %{conn: conn} do
+  test "list many with invalid pagination number should be empty", %{conn: conn} do
     conn = conn |> get("#{Routes.offer_path(conn, :list)}?page_size=1&page_number=2")
-    assert conn.status == 404
+    assert conn.status == 200
   end
 end
