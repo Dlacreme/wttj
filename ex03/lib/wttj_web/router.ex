@@ -31,4 +31,10 @@ defmodule WTTJWeb.Router do
     get "/", Controllers.Offer, :list
     get "/:id", Controllers.Offer, :get
   end
+
+  scope "/report", WTTJWeb do
+    pipe_through :api
+
+    get "/", Controllers.Report, :index
+  end
 end
