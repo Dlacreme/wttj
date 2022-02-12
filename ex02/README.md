@@ -1,6 +1,6 @@
 # Scalability
 
-After some research, I came up with 2 solutions. Both of them are valid and in a professional context, I would discuss the 2 options with my teammates to pick the best one.
+I came up with 2 solutions. Both of them are valid and in a professional context, I would discuss the 2 options with my teammates to pick the best one.
 
 ### Homemade oriented - Lambda architecture
 Reference: https://databricks.com/glossary/lambda-architecture
