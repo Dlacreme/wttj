@@ -5,7 +5,7 @@ I came up with 2 solutions. Both of them are valid and in a professional context
 ### Homemade oriented - Lambda architecture
 Reference: https://databricks.com/glossary/lambda-architecture
 
-Lambda architure is a simple concept that helps processing massive quantities of data while providing a real time access to the incoming. The idea is simply to have 2 different pipeline handling simulteanously the incoming data. However one handle the data by batch (takes longer but write the data) and the other process the data as a stream.
+Lambda architure is a simple concept that helps processing massive quantities of data while providing a real time access to all data. The idea is simply to have 2 different pipeline handling simulteanously the incoming data. However one handle the data by batch (takes longer but write the data) and the other process the data as a stream.
 
 Finally the output of the 2 layer are processed by a 3rd layer that merges the results and returns a single result as output.
 
